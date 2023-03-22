@@ -1,4 +1,45 @@
-# ROS in Docker
+# Segway Robot ROS1 Package
+
+This is a docker container that allows us to develop controller for the Segway robot. 
+The following is the summary taken from the package given to us by Segway Robotics. 
+
+## 1 Chassis PC Motion Test
+
+(1) Turn off the remote control; or turn on the remote control, at the same time, enable the lever to move upwards to the PC mode, and make sure that the emergency stop lever is not in the emergency stop state by moving downwards.
+
+(2) Enter the ROS workspace and run the following command to compile the segway_msgs and segwayrmp packages.
+
+```
+cd catkin_ws
+catkin_make -DCATKIN_WHITELIST_PACKAGES='segway_msgs' && catkin_make -DCATKIN_WHITELIST_PACKAGES='segway_rmp'
+```
+and then run the following after sourcing `devel/setup.bash` and running `roscore`
+
+- `rosrun segwayrmp SmartCar`
+- `rosrun segwayrmp drive_segway_sample`
+
+
+
+## 2 Main File Path Description
+
+(1) segway_msgs: Custom message package
+
+`segway_msgs/msg`: Custom message
+
+(2) segwayrmp: Package where the SmartCar node is located
+
+`segwayrmp/include`: Path of the header files required by the node
+
+`segwayrmp/lib`: Path where the dynamic library required by ROS for the PC is located
+
+`segwayrmp/src`: SmartCar node source file program for interacting with the chassis data
+
+`segwayrmp/tools`: Source program for the drive_segway_sample node used for motion testing
+
+Documentation for the Docker side of things is mentioned below. All thanks to the original contributers for this isolated ROS 1 based Docker Environment. 
+_______________________________________________________________________________________________________________________________________
+
+## ROS in Docker
 
 Tired of trying to compile ROS1 on Ubuntu 22.04? Tired of breaking your systems due to conflicts with
 the ton of dependencies ROS1 has? Here we propose a solution. A completely isolated environment,
